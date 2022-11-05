@@ -6,6 +6,8 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 
+// Contract Deployed:  0x781d5b1Ea3D9a9D3A406C0DAD512a22b3B9eC131
+
 contract ChainBattles is ERC721URIStorage {
     using Strings for uint256;
     using Counters for Counters.Counter;
@@ -21,9 +23,10 @@ contract ChainBattles is ERC721URIStorage {
 
     constructor() ERC721("Chain Battles", "CHBTLS") {}
 
-    //random function create random numbers by using b.timestamp
-    //b.diffculty
-    function random(uint256 number) public returns (uint256) {
+    //FUNCTION - getRandom
+    // A function to create random numbers by using
+    // block.timestamp and block.difficulty
+    function getRandom(uint256 number) public returns (uint256) {
         if (randomseed > 100) {
             randomseed = 0;
         }
@@ -82,7 +85,7 @@ contract ChainBattles is ERC721URIStorage {
             );
     }
 
-    //getLevels takes tokenId and returns the levels as string format
+    //getLevels takes tokenId and returns the levels in attribute format
     function getLevels(uint256 tokenId)
         public
         view
@@ -138,9 +141,9 @@ contract ChainBattles is ERC721URIStorage {
         );
         uint256 currentLevel = tokenIdtoLevels[tokenId].level;
         tokenIdtoLevels[tokenId].level = currentLevel + 1;
-        tokenIdtoLevels[tokenId].speed += random(100);
-        tokenIdtoLevels[tokenId].strength += random(100);
-        tokenIdtoLevels[tokenId].life += random(100);
+        tokenIdtoLevels[tokenId].speed += getRandom(100);
+        tokenIdtoLevels[tokenId].strength += getRandom(100);
+        tokenIdtoLevels[tokenId].life += getRandom(100);
         _setTokenURI(tokenId, getTokenURI(tokenId));
     }
 }
